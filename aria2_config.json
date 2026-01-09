@@ -1,0 +1,8 @@
+{
+    "download_dir": "C:\\Users\\qinghua\\Downloads",
+    "thread_count": 2,
+    "retry_count": 3,
+    "max_concurrent": 2,
+    "speed_limit": 3145728,
+    "enable_speed_limit": false
+}

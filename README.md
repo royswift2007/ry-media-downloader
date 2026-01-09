@@ -1,5 +1,4 @@
-# ry-media-downloader
-# JJH Pro Downloader
+﻿# JJH Pro Downloader
 
 一个基于 `tkinter` 的 Windows 图形界面下载器，整合了：
 
