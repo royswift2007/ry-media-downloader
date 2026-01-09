@@ -1,248 +1,212 @@
-﻿# JJH Pro Downloader
-
-## 功能一览 
-
-一个基于 `tkinter` 的 Windows 图形界面下载器，整合了：
-
-- `yt-dlp`：YouTube / Bilibili / TikTok / 通用网页视频下载（含合并音视频、可选字幕）
-- `N_m3u8DL-RE`：M3U8 下载
-- `aria2c`：HTTP/FTP/磁力链接/BT 种子下载（支持选择文件）
-
-> 项目核心入口：`ry_download.pyw`（双击运行的 GUI 脚本）。
+Here is the complete English translation of your documentation, optimized for a GitHub README or a technical user guide.
 
 ---
 
-## 功能一览
+# Ry Pro Downloader
 
-- 统一的保存目录（底部栏一处设置，三个标签页共用）
-- 任务队列/并发控制（视频下载、M3U8 下载分别有并发设置；Aria2 也有全局并发）
-- 限速（MB/s）
-- 重试次数设置
-- 自动合并音视频（通过 `ffmpeg`）
-- YouTube Cookies 辅助（当遇到 403/需要登录/人机验证等情况时，自动尝试使用 cookies）
-- Aria2：支持磁力链接/BT 种子并弹窗选择要下载的文件
+## Overview
 
----
+A Windows-based graphical downloader built with `tkinter`. It integrates the following powerful command-line tools:
 
-## 环境要求
+* **`yt-dlp`**: Supports downloading from YouTube, Bilibili, TikTok, and general web videos (includes video/audio merging and optional subtitles).
+* **`N_m3u8DL-RE`**: Specialized for M3U8 stream downloading.
+* **`aria2c`**: Supports HTTP/FTP, Magnet links, and BitTorrent (with file selection support).
 
-- Windows 10/11
-- Python（运行源码时需要）：推荐 Python 3.9+（自带 `tkinter`）
-- 工具文件（放在与 `ry_download.pyw` 同一目录）：
-  - `yt-dlp.exe`
-  - JavaScript 运行时（用于 `yt-dlp` 的 `yt-dlp-ejs` 相关能力）
-    - 推荐：`deno.exe`
-    - 也可使用：`node.exe` / `bun.exe` / `qjs.exe`（QuickJS）
-  - `ffmpeg.exe`
-  - `aria2c.exe`
-  - `N_M3U8DL-RE.exe`（用于 M3U8 标签页；也可在界面内点击“更新 N_M3U8DL-RE”下载）
-
-仓库（或发布包）内不包含上述 `.exe`，请自行去官网下载把exe文件放到根目录即可。（与 ry_download.pyw 同级）
+> **Main Entry Point**: `ry_download.pyw` (The GUI script designed to be run by double-clicking).
 
 ---
 
-## 快速开始
+## Features
 
-### 方式 A：直接运行（推荐）
+* **Unified Save Directory**: A single setting in the bottom bar applies to all three download tabs.
+* **Task Queue & Concurrency Control**: Independent concurrency settings for Video and M3U8 downloads; global concurrency for Aria2.
+* **Speed Limiting**: Adjustable speed limits in MB/s.
+* **Retry Mechanism**: Custom retry attempts for failed tasks.
+* **Auto-Muxing**: Automatically merges video and audio streams using `ffmpeg`.
+* **YouTube Cookies Support**: Automatically attempts to use cookies when encountering 403 Forbidden, login requirements, or CAPTCHAs.
+* **Aria2 File Selection**: Pop-up window for selecting specific files within Magnet links or Torrents.
 
-1. 确保目录中存在 `ry_download.pyw` 以及配套的 `.exe` 工具文件。
-2. 双击运行 `ry_download.pyw`。
+---
 
-### 方式 B：命令行运行
+## Environment Requirements
 
-在该目录打开 PowerShell：
+* **OS**: Windows 10/11
+* **Python**: (If running from source) Python 3.9+ is recommended (includes `tkinter`).
+* **Required Binaries** (Must be placed in the same directory as `ry_download.pyw`):
+* `yt-dlp.exe`
+* **JavaScript Runtime** (Required for `yt-dlp-ejs` capabilities in `yt-dlp`):
+* Recommended: `deno.exe`
+* Alternatives: `node.exe`, `bun.exe`, or `qjs.exe` (QuickJS).
+
+
+* `ffmpeg.exe` (and `ffprobe.exe`)
+* `aria2c.exe`
+* `N_M3U8DL-RE.exe` (Used for the M3U8 tab; can also be updated via the in-app "Update" button).
+
+
+
+*Note: These `.exe` files are NOT included in the repository/package. Please download them from their respective official websites and place them in the root directory.*
+
+---
+
+## Quick Start
+
+### Method A: Direct Run (Recommended)
+
+1. Ensure `ry_download.pyw` and all required `.exe` binaries are in the same folder.
+2. Double-click `ry_download.pyw` to launch.
+
+### Method B: Command Line
+
+Open PowerShell in the project directory and run:
 
 ```powershell
 py -3 ry_download.pyw
+
 ```
 
-## 目录结构（建议保持不变）
+---
 
-至少需要：
+## Directory Structure (Recommended)
 
-- `ry_download.pyw`：主程序（GUI）
-- `yt-dlp.exe`：视频下载器
-- JavaScript 运行时：`yt-dlp` 的 `yt-dlp-ejs` 相关能力需要（推荐 `deno.exe`，也可用 `node.exe` / `bun.exe` / `qjs.exe`）
-- `ffmpeg.exe`：音视频合并/封装
-- `aria2c.exe`：直链/BT/磁力下载器
-- `N_M3U8DL-RE.exe`：M3U8 下载器（可在界面内更新）
+Keep the following files in the same root folder for optimal performance:
+
+* `ry_download.pyw` (Main GUI)
+* `yt-dlp.exe`
+* `deno.exe` (or other JS runtime)
+* `ffmpeg.exe`
+* `aria2c.exe`
+* `N_M3U8DL-RE.exe`
 
 ---
 
-## 界面说明（按标签页）
+## Interface Guide (By Tab)
 
-程序包含 3 个标签页：
+The application consists of three main tabs and a global footer:
 
-1. `视频下载 (yt-dlp)`
-2. `M3U8 下载`
-3. `Aria2 下载`
+1. **Video Download (yt-dlp)**
+2. **M3U8 Download**
+3. **Aria2 Download**
 
-底部栏为全局设置：
+**Global Footer:**
 
-- `保存目录`：所有任务默认保存位置
-- 通常包含“选择目录 / 打开目录”等按钮（便于快速定位下载结果）
-
----
-
-## 1) 视频下载（yt-dlp）
-
-支持平台提示：YouTube / Bilibili / TikTok / 通用网页。
-
-常用流程：
-
-1. 在 `视频 URL` 输入框粘贴链接
-2. （可选）点击 `获取分辨率/格式` 获取可用清晰度/编码组合
-3. （可选）填写 `重命名`（留空则自动使用网页标题）
-4. 根据需要设置：
-   - `重试次数`
-   - `并发数`
-   - `限速(MB/s)`（0 表示不限速）
-   - （YouTube）字幕：无/英文/中文（会尝试写入并嵌入字幕）
-5. 点击 `添加到队列`，再点击 `开始全部`
-
-快捷下载：
-
-- `1080p` / `720p` / `仅音频`：一键以预设格式加入队列
-- `直接下载`：不选格式时按默认策略下载（通常相当于 best）
-
-### YouTube Cookies（可选但很有用）
-
-当遇到以下情况时，程序可能提示 cookies 失效/需要更新，或会自动改用 cookies 重试：
-
-- 403 / Forbidden
-- 需要登录（Private / Members-only / age gate）
-- “not a bot”/人机验证导致无法获取信息
-
-使用方式：
-
-1. 用浏览器插件导出 cookies 文件（推荐插件：`Get cookies.txt LOCALLY`）
-2. 生成文件名必须为：`www.youtube.com_cookies.txt`
-3. 将该文件放到程序同目录（与 `ry_download.pyw` 同级）
-
-注意：cookies 文件等同于“登录凭证”，请勿上传到 GitHub、不要发给他人。
+* **Save Directory**: Sets the default download path for all tasks.
+* **Browse/Open Buttons**: For quick directory selection and access to downloaded files.
 
 ---
 
-## 2) M3U8 下载（N_m3u8DL-RE）
+## 1) Video Download (yt-dlp)
 
-字段说明：
+**Supported Platforms**: YouTube, Bilibili, TikTok, and most generic video sites.
 
-- `M3U8 URL`：必填
-- `文件名[必填]`：必填（会校验 Windows 不允许的字符：`\\ / : * ? \" < > |`）
-- `线程数`：下载分片的线程数
-- `重试`：失败重试次数
-- `并发`：M3U8 队列并发任务数
-- `限速(M)`：MB/s（0 表示不限速）
-- `Headers`：用于需要鉴权/Referer 的场景（按工具参数原样传入）
-- `额外参数`：会按空格拆分并追加到命令行（高级用法）
+**Standard Workflow**:
 
-基本流程：
+1. Paste the link into the **Video URL** field.
+2. (Optional) Click **Get Resolution/Formats** to view available quality and codec options.
+3. (Optional) Enter a **Rename** value (leave blank to use the webpage title).
+4. Configure settings: **Retries**, **Concurrency**, and **Speed Limit** (0 for unlimited).
+5. **Subtitles (YouTube)**: Choose None / English / Chinese (will attempt to embed subtitles into the file).
+6. Click **Add to Queue**, then click **Start All**.
 
-1. 填入 `M3U8 URL` 与 `文件名`
-2. 需要鉴权时在 `Headers` 填入请求头（例如 `Referer`、`User-Agent`、`Cookie` 等；多条请求头请按 `N_m3u8DL-RE` 的 `--headers` 规则填写）
-3. 点击 `添加到队列`，再点击 `开始全部`
+**Quick Shortcuts**:
 
-示例（仅示意，具体分隔符以 `N_m3u8DL-RE` 为准）：
+* **Direct Download**: Downloads using the default strategy (usually "best") if no format is selected.
+
+### YouTube Cookies (Optional but Recommended)
+
+If you encounter 403 Forbidden errors, "Not a bot" verification, or need to download private/members-only content:
+
+1. Use a browser extension to export cookies (Recommended: `Get cookies.txt LOCALLY`).
+2. Save the file as: `www.youtube.com_cookies.txt`.
+3. Place this file in the **same directory** as `ry_download.pyw`.
+
+> **Security Warning**: Cookies files are essentially "login credentials." Do NOT upload them to GitHub or share them with others.
+
+---
+
+## 2) M3U8 Download (N_m3u8DL-RE)
+
+**Field Descriptions**:
+
+* **M3U8 URL**: The source link (Required).
+* **Filename**: The output name (Required; automatically validates against illegal Windows characters like `\ / : * ? " < > |`).
+* **Threads**: Number of threads for segment downloading.
+* **Retry/Concurrency/Speed Limit**: Similar to the video tab.
+* **Headers**: Used for authentication/referer requirements (passed directly to the tool).
+* **Extra Args**: Additional command-line arguments for advanced users.
+
+**Example Headers**:
 
 ```text
 User-Agent: Mozilla/5.0\r\nReferer: https://example.com/
+
 ```
 
 ---
 
-## 3) Aria2 下载（HTTP/FTP/BT/Magnet）
+## 3) Aria2 Download (HTTP/FTP/BT/Magnet)
 
-支持：
+**Supported Types**:
 
-- HTTP/HTTPS/FTP 直链下载
-- 磁力链接（`magnet:`）
-- BT 种子（`.torrent` 文件）
+* Direct links (HTTP/HTTPS/FTP).
+* Magnet links (`magnet:`).
+* BitTorrent files (`.torrent`).
 
-常用操作：
+**Operations**:
 
-- 粘贴链接到输入框后点击“添加”（加入 Aria2 队列）
-- 点击“添加 BT 种子”选择 `.torrent` 文件
-- 右键任务：打开文件/打开保存目录/停止并删除（具体以界面为准）
+* Paste a link and click **Add** to join the Aria2 queue.
+* Click **Add BT Torrent** to select a `.torrent` file from your computer.
+* **Right-click tasks**: Open file location, Open save directory, or Stop and Delete.
 
-### 磁力/种子选择文件
-
-当磁力链接/种子包含多个文件时，程序会弹出选择窗口：
-
-- 支持“全选/全不选/反选”
-- 未选中的文件不会下载（通过 Aria2 的 `select-file` 控制）
+**File Selection**:
+For Magnets or Torrents with multiple files, a selection window will pop up. You can Select All, Deselect All, or Invert Selection. Unchecked files will not be downloaded.
 
 ---
 
-## 更新工具（需要联网）
+## Updating Tools (Internet Required)
 
-顶部工具栏包含：
+The top toolbar includes:
 
-- `更新 yt-dlp`：下载最新 `yt-dlp.exe`
-- `更新 N_M3U8DL-RE`：从 GitHub release 拉取 Windows x64 版本并替换
+* **Update yt-dlp**: Downloads the latest `yt-dlp.exe`.
+* **Update N_M3U8DL-RE**: Fetches the latest Windows x64 version from GitHub Releases.
 
-如果你在离线环境或网络受限环境中使用，请手动下载对应工具并放到同目录覆盖即可。
-
----
-
-## 文件与数据说明
-
-程序会在同目录生成/使用一些文件（名称以实际生成结果为准）：
-
-- `window_pos.json`：窗口位置与大小
-- `download_history_*.json`：下载历史（按下载器类别区分）
-- `download_log_aria2.txt` / `download.log` 或 `Logs/`：运行日志
-- `www.youtube.com_cookies.txt`：可选 cookies（不要分享/不要提交到仓库）
-
-建议在 Git 仓库中添加 `.gitignore`，至少忽略：
-
-- `www.youtube.com_cookies.txt`
-- `download_history_*.json`
-- `window_pos.json`
-- `Logs/`、`download*.log`
+If you are in a restricted network environment, please manually replace the `.exe` files in the root directory.
 
 ---
 
-## 开发与打包（可选）
+## Files & Data Reference
 
-本项目主要使用标准库（`tkinter`、`subprocess` 等），一般无需额外 `pip` 依赖。
+The program generates or uses the following files:
 
-如果你希望打包为单文件/单目录 `exe`（示例）：
+* `window_pos.json`: Saves window position and size.
+* `download_history_*.json`: Stores task history by category.
+* `Logs/` or `download.log`: System logs for troubleshooting.
+* `www.youtube.com_cookies.txt`: Optional YouTube credentials.
 
-```powershell
-py -m pip install pyinstaller
-py -m PyInstaller --noconsole --name "JJH_Pro_Downloader" ry_download.pyw
+**Recommended `.gitignore**`:
+
+```text
+www.youtube.com_cookies.txt
+download_history_*.json
+window_pos.json
+Logs/
+download*.log
+
 ```
 
-打包后仍需确保 `yt-dlp.exe`、`ffmpeg.exe`、`aria2c.exe`、`N_M3U8DL-RE.exe` 以及 JS 运行时（如 `deno.exe`）与主程序在运行时可被找到（通常放在同目录最省事）。
+
+## Troubleshooting
+
+1. **"N_M3U8DL-RE.exe not found"**: Click "Update N_M3U8DL-RE" in the toolbar or manually place the file in the root directory.
+2. **YouTube Cookies Invalid**: Re-export the cookies file and ensure it is named correctly.
+3. **No Audio / Merging Failed**: Ensure `ffmpeg.exe` exists in the root directory. `yt-dlp` requires it to mux video and audio.
+4. **Aria2 RPC Not Ready**: The program launches an Aria2 RPC daemon on startup. If it fails, check if antivirus software is blocking the process or port.
 
 ---
 
-## 常见问题（Troubleshooting）
+## Disclaimer
 
-### 1. 提示找不到 `N_M3U8DL-RE.exe`
-
-- 点击顶部的“更新 N_M3U8DL-RE”自动下载；或手动放置 `N_M3U8DL-RE.exe` 到同目录。
-
-### 2. YouTube 提示 cookies 失效
-
-- 重新导出 `www.youtube.com_cookies.txt` 并覆盖旧文件。
-- 确保导出的 cookies 对应 `www.youtube.com` 域名且仍在有效期。
-
-### 3. 下载完成但没有声音/画面未合并
-
-- 检查同目录是否存在 `ffmpeg.exe`。
-- 这是合并音视频所必需的工具（`yt-dlp` 会调用它）。
-
-### 4. Aria2 显示 RPC 未就绪
-
-- 程序启动后会尝试拉起 `aria2c` 的 RPC 守护进程；如果被杀毒软件拦截/权限不足可能失败。
-- 尝试以普通方式重启程序，或将目录加入安全软件白名单。
+Please comply with local laws and the terms of service of the platforms you use. Only download content you have the right to access. The author/maintainer assumes no responsibility for any misuse or legal consequences.
 
 ---
-
-## 免责声明
-
-请遵守当地法律法规与平台服务条款，仅下载你有权获取的内容。作者/维护者不对滥用行为及其后果承担责任。
-
-
 
