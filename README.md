@@ -128,6 +128,8 @@ If you encounter 403 Forbidden errors, "Not a bot" verification, or need to down
 
 ## 2) M3U8 Download (N_m3u8DL-RE)
 
+You need to extract the .m3u8 URL and paste it into the download box. You can use browser extensions like 'Cat Catch' or 'Video Downloader - MPMux' for extraction.
+
 **Field Descriptions**:
 
 * **M3U8 URL**: The source link (Required).
