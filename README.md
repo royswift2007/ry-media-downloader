@@ -1,3 +1,4 @@
+English | [中文](README.cn.md)
 
 # Ry Pro Downloader
 
