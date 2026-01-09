@@ -2,6 +2,9 @@
 
  # Ry Pro Downloader
 
+ ![界面截图](Imaegs/ry_download.jpg)
+
+
 一个基于 `tkinter` 的 Windows 图形界面下载器，整合了：
 
 - `yt-dlp`：YouTube / Bilibili / TikTok / 通用网页视频下载（含合并音视频、可选字幕）
@@ -229,5 +232,6 @@ User-Agent: Mozilla/5.0\r\nReferer: https://example.com/
 ## 免责声明
 
 请遵守当地法律法规与平台服务条款，仅下载你有权获取的内容。作者/维护者不对滥用行为及其后果承担责任。
+
 
 
