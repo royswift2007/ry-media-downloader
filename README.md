@@ -111,7 +111,6 @@ The application consists of three main tabs and a global footer:
 
 **Quick Shortcuts**:
 
-* `1080p` / `720p` / `Audio Only`: One-click buttons to add tasks with preset formats.
 * **Direct Download**: Downloads using the default strategy (usually "best") if no format is selected.
 
 ### YouTube Cookies (Optional but Recommended)
