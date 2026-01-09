@@ -141,6 +141,8 @@ py -3 ry_download.pyw
 
 基本流程：
 
+需要提取.m3u8文件地址填写到下载框才行，可以用“猫爪”或者“视频下载器-MPMux”网页插件提取。
+
 1. 填入 `M3U8 URL` 与 `文件名`
 2. 需要鉴权时在 `Headers` 填入请求头（例如 `Referer`、`User-Agent`、`Cookie` 等；多条请求头请按 `N_m3u8DL-RE` 的 `--headers` 规则填写）
 3. 点击 `添加到队列`，再点击 `开始全部`
@@ -232,6 +234,7 @@ User-Agent: Mozilla/5.0\r\nReferer: https://example.com/
 ## 免责声明
 
 请遵守当地法律法规与平台服务条款，仅下载你有权获取的内容。作者/维护者不对滥用行为及其后果承担责任。
+
 
 
 
