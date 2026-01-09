@@ -1,0 +1,9 @@
+运行前先把：
+
+yt-dlp
+ffmpeg
+N_m3u8DL-RE
+aria2c
+deno（非必需，详见README.md）
+
+放到根目录
