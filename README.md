@@ -1,5 +1,7 @@
 ﻿# JJH Pro Downloader
 
+## 功能一览 
+
 一个基于 `tkinter` 的 Windows 图形界面下载器，整合了：
 
 - `yt-dlp`：YouTube / Bilibili / TikTok / 通用网页视频下载（含合并音视频、可选字幕）
@@ -35,7 +37,7 @@
   - `aria2c.exe`
   - `N_M3U8DL-RE.exe`（用于 M3U8 标签页；也可在界面内点击“更新 N_M3U8DL-RE”下载）
 
-仓库（或发布包）内通常已包含上述 `.exe`，请不要随意改动文件名。
+仓库（或发布包）内不包含上述 `.exe`，请自行去官网下载把exe文件放到根目录即可。
 
 ---
 
@@ -241,4 +243,5 @@ py -m PyInstaller --noconsole --name "JJH_Pro_Downloader" ry_download.pyw
 ## 免责声明
 
 请遵守当地法律法规与平台服务条款，仅下载你有权获取的内容。作者/维护者不对滥用行为及其后果承担责任。
+
 
